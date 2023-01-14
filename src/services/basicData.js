@@ -1,11 +1,6 @@
 export const BASIC_URL = 'https://api.themoviedb.org/';
-export const PERSONAL_KEY = '7a732289faaa021b300c67c80c35cad1'; //Ключ API (v3 auth)
+export const PERSONAL_KEY = '9e5e6e57f12771c2c25f1c94e2319b6a'; //Ключ API (v3 auth)
 // Ключ доступа к API (v4 auth)
 export const PERSONAL_KEY_V4 =
-  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3YTczMjI4OWZhYWEwMjFiMzAwYzY3YzgwYzM1Y2FkMSIsInN1YiI6IjYyNmU1NzcyMjQ1ZGJlMzM3ZjQzNzgwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nGXh-5GwT2pl8pJ7su6oK_01uD4EgHcGzKoNAn_Ubao';
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTVlNmU1N2YxMjc3MWMyYzI1ZjFjOTRlMjMxOWI2YSIsInN1YiI6IjYzYjczY2RhOTNiZDY5MDBkZTA5NjBiZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.e40P8CBxHFIx-FgRYB7kO4HR9QZCbp9J2px1uQOnvKU';
 
-/* Пример API-запроса
-https://api.themoviedb.org/3/movie/550?api_key=7a732289faaa021b300c67c80c35cad1 */
-
-//Документация
-//Our primary documentation is located at developers.themoviedb.org
