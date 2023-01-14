@@ -1,30 +1,57 @@
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useMovieCredits } from 'utils/hooks/useMovieCredits';
 import PropTypes from 'prop-types';
+import * as API from '../../services/api';
+import { CastItem } from './CastItem';
+import { CastText,ActorsList } from './CastStyled';
+import { Spinner } from '../AppStyled';
 
 const Cast = () => {
+  const [cast, setCast] = useState(null);
+  const [noData, setNoData] = useState(false);
   const { movieId } = useParams();
-  const { movieCredits } = useMovieCredits(movieId);
+
+  useEffect(() => {
+    API.getCast(movieId).then(response => {
+      if (response) {
+        setCast(response.data.cast);
+        if(response.data.cast.length===0){
+          setNoData(true);}
+      } else {
+        return;
+      }
+    });
+  }, [movieId]);
 
   return (
-    <div>
-      <ul>
-        {movieCredits.map(cast => {
-          return (
-            <li key={cast.id}>
-              <img width={100} src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${cast.profile_path}`} alt={cast.name} />
-              <p>{cast.name}</p>
-              <p>Character: {cast.character}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <>
+      {cast ? (
+        <ActorsList>
+          {cast.map(actor => (
+            <CastItem
+              key={actor.id}
+              photo={actor.profile_path}
+              name={actor.name}
+              character={actor.character}
+            />
+          ))}
+        </ActorsList>
+      ) : (
+        <Spinner />
+      )}
+      {noData && (
+        <CastText>
+          Sorry, we don't have any cast information for this movie
+        </CastText>
+      )}
+    </>
   );
 };
 
-Cast.propTypes = {
-  movieId: PropTypes.string,
+CastItem.propTypes = {
+  photo: PropTypes.string,
+  name: PropTypes.string,
+  character: PropTypes.string,
 };
 
 export default Cast;

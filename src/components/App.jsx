@@ -1,26 +1,47 @@
-import { lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { SharedLayout } from './SharedLayout/SharedLayout';
+import {
+  Route,
+  Routes,
+} from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Toaster } from 'react-hot-toast';
+import GlobalStyle from '../GlobalStyle';
+import { Container, Spinner } from './AppStyled';
+import Navigation from '../components/Navigation/Navigation';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
-const MovieDetailsPage = lazy(() => import('../pages/MovieDetailsPage'));
-const Movies = lazy(() => import('../pages/Movies'));
-const NotFound = lazy(() => import('../pages/NotFound'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
+const MoviesPage = lazy(() => import('../pages/MoviesPage'));
+const MovieDataPage = lazy(() => import('../pages/MovieDataPage'));
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 export const App = () => {
+
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movies/:movieId" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Route>
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Container>
+      <GlobalStyle />
+      <Navigation />
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDataPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+        }}
+      />
+    </Container>
   );
 };
