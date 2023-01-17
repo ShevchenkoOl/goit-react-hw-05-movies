@@ -44,7 +44,7 @@ const MoviesPage = () => {
     navigate({
       search: `?query=${values.query}`,
     });
-    resetForm();
+    //resetForm();
   };
 
   return (
